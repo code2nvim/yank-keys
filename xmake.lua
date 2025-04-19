@@ -12,5 +12,5 @@ add_requires("pkgconf::gtkmm-4.0", { alias = "gtkmm" })
 
 target("yank-keys", function()
     add_packages("gtkmm")
-    add_files("src/main.cpp")
+    add_files("src/*.cpp")
 end)
