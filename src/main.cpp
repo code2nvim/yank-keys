@@ -1,6 +1,6 @@
-import window;
-
 #include <gtkmm/application.h>
+
+import window;
 
 auto main(int argc, char* argv[]) -> int
 {
