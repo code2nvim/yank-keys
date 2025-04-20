@@ -4,6 +4,7 @@ module;
 
 export module window;
 
+import :cfg;
 import :menu;
 
 export namespace app {
@@ -19,8 +20,9 @@ private:
 
 Window::Window()
 {
-    set_title("YANK - Yank A Nonsense Key");
-    set_resizable(false);
+    set_title(app::window.title);
+    set_default_size(app::window.width, app::menu.height);
+    set_resizable(app::window.resizable);
 }
 
 }

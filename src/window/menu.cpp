@@ -4,6 +4,8 @@ module;
 
 export module window:menu;
 
+import :cfg;
+
 export namespace app {
 
 class Menu : public Gtk::Window {
@@ -13,7 +15,9 @@ public:
 
 Menu::Menu()
 {
-    show();
+    set_title(app::menu.title);
+    set_default_size(app::menu.width, app::menu.height);
+    set_resizable(app::menu.resizable);
     signal_close_request().connect([] { return true; }, false); // unclosable util the main window is closed
 }
 
