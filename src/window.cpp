@@ -18,8 +18,8 @@ public:
 private:
     void toggle();
 
-    app::Menu _menu;
-    app::Toggle _toggle;
+    app::Menu menu_;
+    app::Toggle toggle_;
 };
 
 Window::Window()
@@ -27,13 +27,13 @@ Window::Window()
     set_title(app::window.title);
     set_default_size(app::window.width, app::menu.height);
     set_resizable(app::window.resizable);
-    set_child(_toggle);
-    _toggle.signal_clicked().connect([&] { toggle(); });
+    set_child(toggle_);
+    toggle_.signal_clicked().connect([&] { toggle(); });
 }
 
 void Window::toggle()
 {
-    _menu.set_visible(!_menu.get_visible());
+    menu_.set_visible(!menu_.get_visible());
     set_resizable(!get_resizable());
 }
 
