@@ -19,7 +19,7 @@ private:
     void toggle();
 
     app::Menu menu_;
-    app::Toggle toggle_;
+    app::Toggle toggle_ { ToggleProps { .toggle = [this] { toggle(); } } };
 };
 
 Window::Window()
@@ -28,7 +28,6 @@ Window::Window()
     set_default_size(app::window.width, app::menu.height);
     set_resizable(app::window.resizable);
     set_child(toggle_);
-    toggle_.signal_clicked().connect([&] { toggle(); });
 }
 
 void Window::toggle()
