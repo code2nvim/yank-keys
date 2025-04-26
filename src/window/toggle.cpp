@@ -28,7 +28,7 @@ Toggle::Toggle(ToggleProps props)
 {
     constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER is defined in <gtk/gtk.h>, which is a C header
     get_style_context()->add_provider(app::toggle.provider, priority);
-    signal_clicked().connect([this] { props_.toggle(); });
+    signal_clicked().connect(props_.toggle);
 }
 
 }
