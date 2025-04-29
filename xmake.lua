@@ -14,6 +14,7 @@ target("yank-keys", function()
     add_packages("gtkmm")
     add_files(
         "src/window/*.cpp",
-        "src/*.cpp"
+        "src/window.cpp",
+        "src/main.cpp"
     )
 end)
