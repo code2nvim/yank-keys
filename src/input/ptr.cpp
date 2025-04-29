@@ -34,8 +34,8 @@ auto make_event(libinput* libinput)
 {
     return std::unique_ptr<libinput_event, std::function<void(libinput_event*)>> {
         libinput_get_event(libinput),
-        [](libinput_event* input) {
-            libinput_event_destroy(input);
+        [](libinput_event* event) {
+            libinput_event_destroy(event);
         },
     };
 }
