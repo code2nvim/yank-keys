@@ -1,7 +1,7 @@
 module;
 
 #define BOOST_TEST_MODULE input_test
-#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 module input;
 
