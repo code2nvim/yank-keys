@@ -24,7 +24,6 @@ target("yank-keys", function()
 end)
 
 target("test", function()
-    set_default(false)
     add_tests("input_test")
     add_packages("libudev", "libinput")
     add_links("boost_unit_test_framework")
