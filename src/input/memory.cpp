@@ -6,7 +6,7 @@ module;
 #include <functional>
 #include <memory>
 
-export module input:ptr;
+export module input:memory;
 
 export namespace app {
 

@@ -5,7 +5,7 @@ module;
 
 module input;
 
-import :ptr;
+import :memory;
 
 BOOST_AUTO_TEST_CASE(ptr_test)
 {
