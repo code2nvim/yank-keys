@@ -8,14 +8,14 @@ export module window:cfg;
 namespace app {
 
 export const struct {
-    const char* title = "YANK - Yank A Nonsense Key";
+    const char* title = "YANK - Yank Nonsense Keys";
     int width = 800;
     int height = 600;
     bool resizable = false;
 } window;
 
 export const struct {
-    const char* title = "YANK - Yank A Nonsense Key (Menu)";
+    const char* title = "YANK - Yank Nonsense Keys (Menu)";
     int width = 300;
     int height = 300;
     bool resizable = false;
