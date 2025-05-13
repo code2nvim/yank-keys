@@ -32,8 +32,8 @@ Window::Window()
 
 void Window::toggle()
 {
-    menu_.set_visible(!menu_.get_visible());
     set_resizable(!get_resizable());
+    menu_.toggle();
 }
 
 }

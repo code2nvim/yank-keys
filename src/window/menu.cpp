@@ -11,6 +11,8 @@ export namespace app {
 class Menu : public Gtk::Window {
 public:
     Menu();
+
+    void toggle();
 };
 
 Menu::Menu()
@@ -19,6 +21,11 @@ Menu::Menu()
     set_default_size(app::menu.width, app::menu.height);
     set_resizable(app::menu.resizable);
     signal_close_request().connect([] { return true; }, false); // unclosable util the main window is closed
+}
+
+void Menu::toggle()
+{
+    set_visible(!get_visible());
 }
 
 }
