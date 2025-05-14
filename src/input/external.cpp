@@ -8,12 +8,16 @@ module;
 
 export module input:external;
 
+namespace {
+
 extern "C" {
 // NOLINTBEGIN
 auto poll(struct pollfd* _fds, nfds_t _nfds, int _timeout) -> int;
 auto open(const char* _file, int _oflag, ...) -> int;
 auto close(int _fd) -> int;
 // NOLINTEND
+}
+
 }
 
 export namespace app {
