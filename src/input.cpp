@@ -3,7 +3,9 @@ module;
 #include <libinput.h>
 
 #include <generator>
+#include <print>
 #include <string>
+#include <string_view>
 
 export module input;
 
@@ -12,19 +14,18 @@ import :memory;
 
 namespace {
 
-auto to_string(const auto& libinput) -> std::string
+auto to_string(const app::libinput_ptr* libinput) -> std::generator<std::string_view>
 {
-    while (auto event = app::make_event(libinput.get())) {
+    while (auto event = app::make_event(libinput->get())) {
         switch (libinput_event_get_type(event.get())) {
         case LIBINPUT_EVENT_POINTER_BUTTON:
-            return std::string { "pointer" };
+            co_yield std::string { "pointer" };
         case LIBINPUT_EVENT_KEYBOARD_KEY:
-            return std::string { "keyboard" };
+            co_yield std::string { "keyboard" };
         default:
-            return std::string { "unknown" };
+            co_yield std::string { "unknown" };
         }
     }
-    return {};
 }
 
 }
@@ -38,16 +39,21 @@ auto input() -> std::generator<std::string>
         .open_restricted = app::open_restricted,
         .close_restricted = app::close_restricted,
     };
-    const auto libinput = app::make_libinput(&interface, nullptr, udev.get());
+    auto libinput = app::make_libinput(&interface, nullptr, udev.get());
+    libinput_udev_assign_seat(libinput.get(), "seat0");
+    app::pollfd fds = {
+        .fd = libinput_get_fd(libinput.get()),
+        .events = 0x001,
+        .revents = 0,
+    };
     for (;;) {
-        app::pollfd fds = {
-            .fd = libinput_get_fd(libinput.get()),
-            .events = 0x001,
-            .revents = 0,
-        };
         app::poll(&fds);
         libinput_dispatch(libinput.get());
-        co_yield to_string(libinput);
+        for (const auto& elem : to_string(&libinput)) {
+            if (elem != "unknown") {
+                co_yield std::string { elem };
+            }
+        }
     }
 }
 

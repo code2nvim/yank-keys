@@ -10,6 +10,8 @@ export module input:memory;
 
 export namespace app {
 
+using udev_ptr = std::unique_ptr<udev, std::function<void(udev*)>>;
+
 auto make_udev()
 {
     return std::unique_ptr<udev, std::function<void(udev*)>> {
@@ -20,6 +22,8 @@ auto make_udev()
     };
 }
 
+using libinput_ptr = std::unique_ptr<libinput, std::function<void(libinput*)>>;
+
 auto make_libinput(const libinput_interface* interface, void* user_data, udev* udev)
 {
     return std::unique_ptr<libinput, std::function<void(libinput*)>> {
@@ -29,6 +33,8 @@ auto make_libinput(const libinput_interface* interface, void* user_data, udev* u
         }
     };
 }
+
+using event_ptr = std::unique_ptr<libinput_event, std::function<void(libinput_event*)>>;
 
 auto make_event(libinput* libinput)
 {

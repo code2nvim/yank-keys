@@ -1,12 +1,19 @@
 module;
 
+#include <glibmm/dispatcher.h>
 #include <gtkmm/window.h>
+
+#include <atomic>
+#include <print>
+#include <thread>
 
 export module window;
 
 import :cfg;
 import :menu;
 import :toggle;
+
+import input;
 
 export namespace app {
 
@@ -16,10 +23,14 @@ public:
     Window();
 
 private:
+    void input();
     void toggle();
 
     app::Menu menu_;
     app::Toggle toggle_ { ToggleProps { .toggle = [this] { toggle(); } } };
+
+    std::atomic<bool> running_;
+    std::jthread input_ { [this] { input(); } };
 };
 
 Window::Window()
@@ -30,8 +41,19 @@ Window::Window()
     set_child(toggle_);
 }
 
+void Window::input()
+{
+    std::println("Window::input");
+    for (auto elem : app::input()) {
+        if (running_) {
+            std::println("{}", elem);
+        }
+    }
+}
+
 void Window::toggle()
 {
+    running_ = !running_;
     set_resizable(!get_resizable());
     menu_.toggle();
 }
