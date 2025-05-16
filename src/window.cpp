@@ -29,7 +29,7 @@ private:
     app::Menu menu_;
     app::Toggle toggle_ { ToggleProps { .toggle = [this] { toggle(); } } };
 
-    std::atomic<bool> running_;
+    std::atomic<bool> running_ { true };
     std::jthread input_ { [this] { input(); } };
 };
 
