@@ -3,7 +3,6 @@ module;
 #include <libinput.h>
 
 #include <generator>
-#include <print>
 #include <string>
 
 export module input;

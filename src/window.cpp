@@ -1,6 +1,5 @@
 module;
 
-#include <glibmm/dispatcher.h>
 #include <gtkmm/window.h>
 
 #include <atomic>
