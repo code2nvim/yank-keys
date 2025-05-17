@@ -11,9 +11,10 @@ set_runtimes("stdc++_shared")
 add_requires("pkgconf::gtkmm-4.0", { alias = "gtkmm" })
 add_requires("pkgconf::libudev", { alias = "libudev" })
 add_requires("pkgconf::libinput", { alias = "libinput" })
+add_requires("pkgconf::libevdev", { alias = "libevdev" })
 
 target("yank-keys", function()
-    add_packages("gtkmm", "libudev", "libinput")
+    add_packages("gtkmm", "libudev", "libinput", "libevdev")
     add_files(
         "src/input/*.cpp",
         "src/input.cpp",
@@ -25,7 +26,7 @@ end)
 
 target("test", function()
     add_tests("input_test")
-    add_packages("libudev", "libinput")
+    add_packages("libudev", "libinput", "libevdev")
     add_links("boost_unit_test_framework")
     add_files(
         "src/input/*.cpp",

@@ -5,22 +5,22 @@ module;
 #include <generator>
 #include <print>
 #include <string>
-#include <string_view>
 
 export module input;
 
+import :event;
 import :external;
 import :memory;
 
 namespace {
 
-auto to_string(const app::event_ptr& event) -> std::string_view
+auto to_string(const app::event_ptr& event) -> std::string
 {
     switch (libinput_event_get_type(event.get())) {
+    case LIBINPUT_EVENT_KEYBOARD_KEY:
+        return app::keyboard_event(event);
     case LIBINPUT_EVENT_POINTER_BUTTON:
         return "pointer";
-    case LIBINPUT_EVENT_KEYBOARD_KEY:
-        return "keyboard";
     default:
         return "unknown";
     }
@@ -48,9 +48,7 @@ auto input() -> std::generator<std::string>
         app::poll(&fds);
         libinput_dispatch(libinput.get());
         while (auto event = app::make_event(libinput.get())) {
-            if (auto elem = to_string(event); elem != "unknown") {
-                co_yield std::string { elem };
-            }
+            co_yield std::string { to_string(event) };
         }
     }
 }
