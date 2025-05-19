@@ -14,7 +14,7 @@ using udev_ptr = std::unique_ptr<udev, std::function<void(udev*)>>;
 
 auto make_udev()
 {
-    return std::unique_ptr<udev, std::function<void(udev*)>> {
+    return udev_ptr {
         udev_new(),
         [](udev* udev) {
             udev_unref(udev);
@@ -26,7 +26,7 @@ using libinput_ptr = std::unique_ptr<libinput, std::function<void(libinput*)>>;
 
 auto make_libinput(const libinput_interface* interface, void* user_data, udev* udev)
 {
-    return std::unique_ptr<libinput, std::function<void(libinput*)>> {
+    return libinput_ptr {
         libinput_udev_create_context(interface, user_data, udev),
         [](libinput* libinput) {
             libinput_unref(libinput);
@@ -38,7 +38,7 @@ using event_ptr = std::unique_ptr<libinput_event, std::function<void(libinput_ev
 
 auto make_event(libinput* libinput)
 {
-    return std::unique_ptr<libinput_event, std::function<void(libinput_event*)>> {
+    return event_ptr {
         libinput_get_event(libinput),
         [](libinput_event* event) {
             libinput_event_destroy(event);
