@@ -3,6 +3,7 @@ module;
 #include <gtkmm/window.h>
 
 #include <atomic>
+#include <cstdlib>
 #include <print>
 #include <thread>
 
@@ -37,6 +38,7 @@ Window::Window()
     set_title(app::window.title);
     set_default_size(app::window.width, app::menu.height);
     set_resizable(app::window.resizable);
+    signal_close_request().connect([] { std::exit(0); return false; }, false); // exit program when window is closed
     set_child(toggle_);
 }
 
