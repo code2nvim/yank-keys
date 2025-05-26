@@ -35,6 +35,8 @@ private:
 
 Window::Window()
 {
+    constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER is defined in <gtk/gtk.h>, which is a C header
+    Gtk::StyleProvider::add_provider_for_display(get_display(), app::styles.provider, priority);
     set_title(app::window.title);
     set_default_size(app::window.width, app::menu.height);
     set_resizable(app::window.resizable);
@@ -47,7 +49,7 @@ void Window::input()
     std::println("Window::input");
     for (auto elem : app::input()) {
         if (running_) {
-            std::println("{}", elem);
+            toggle_.set_label(std::move(elem));
         }
     }
 }

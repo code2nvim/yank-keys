@@ -24,9 +24,9 @@ export const struct {
 export const struct {
     Glib::RefPtr<Gtk::CssProvider> provider = [] {
         auto tmp = Gtk::CssProvider::create();
-        tmp->load_from_string("button { font-family: Monospace; font-size: 8rem; }");
+        tmp->load_from_string(".Button { font-family: Monospace; font-size: 8rem; }");
         return tmp;
     }();
-} toggle;
+} styles;
 
 }

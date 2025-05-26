@@ -7,8 +7,6 @@ module;
 
 export module window:toggle;
 
-import :cfg;
-
 export namespace app {
 
 struct ToggleProps {
@@ -26,9 +24,8 @@ private:
 Toggle::Toggle(ToggleProps props)
     : props_ { std::move(props) }
 {
-    constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER is defined in <gtk/gtk.h>, which is a C header
-    get_style_context()->add_provider(app::toggle.provider, priority);
     signal_clicked().connect(props_.toggle);
+    add_css_class("Button");
 }
 
 }
