@@ -10,6 +10,7 @@ module;
 export module input:event;
 
 import :memory;
+import :name;
 
 export namespace app {
 
@@ -22,9 +23,9 @@ auto keyboard_event(const app::event_ptr& event) -> std::string
     };
     switch (libinput_event_keyboard_get_key_state(keyboard)) {
     case LIBINPUT_KEY_STATE_PRESSED:
-        return std::format("pressed: {}", name.data());
+        return std::format("pressed: {}", app::key_name(name.data()));
     case LIBINPUT_KEY_STATE_RELEASED:
-        return std::format("released: {}", name.data());
+        return std::format("released: {}", app::key_name(name.data()));
     };
 }
 
@@ -37,9 +38,9 @@ auto pointer_event(const app::event_ptr& event) -> std::string
     };
     switch (libinput_event_pointer_get_button_state(pointer)) {
     case LIBINPUT_BUTTON_STATE_PRESSED:
-        return std::format("pressed: {}", name.data());
+        return std::format("pressed: {}", app::btn_name(name.data()));
     case LIBINPUT_BUTTON_STATE_RELEASED:
-        return std::format("released: {}", name.data());
+        return std::format("released: {}", app::btn_name(name.data()));
     };
 }
 
