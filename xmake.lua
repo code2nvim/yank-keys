@@ -2,7 +2,7 @@ add_rules("mode.debug", "mode.release")
 
 add_rules("plugin.compile_commands.autoupdate")
 
-set_languages("c++23")
+set_languages("c++26")
 set_warnings("all", "extra", "pedantic")
 set_policy("build.c++.modules", true)
 

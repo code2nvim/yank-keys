@@ -1,5 +1,6 @@
 module;
 
+#include "gtkmm/styleprovider.h"
 #include <gtkmm/window.h>
 
 #include <atomic>
@@ -35,7 +36,7 @@ private:
 
 Window::Window()
 {
-    constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER is defined in <gtk/gtk.h>, which is a C header
+    constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER from <gtk/gtk.h>
     Gtk::StyleProvider::add_provider_for_display(get_display(), app::styles.provider, priority);
     set_title(app::window.title);
     set_default_size(app::window.width, app::menu.height);
