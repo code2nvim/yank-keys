@@ -48,9 +48,9 @@ Window::Window()
 void Window::input()
 {
     std::println("Window::input");
-    for (auto elem : app::input()) {
+    for (auto [mod, msg] : app::input()) {
         if (running_) {
-            toggle_.set_label(std::move(elem));
+            toggle_.set_label(std::move(msg));
         }
     }
 }

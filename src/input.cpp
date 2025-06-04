@@ -4,12 +4,14 @@ module;
 
 #include <generator>
 #include <string>
+#include <tuple>
 
 export module input;
 
 import :event;
 import :external;
 import :memory;
+import :modifier;
 
 namespace {
 
@@ -29,7 +31,7 @@ auto to_string(const app::event_ptr& event) -> std::string
 
 export namespace app {
 
-auto input() -> std::generator<std::string>
+auto input(app::Modifier modifier = {}) -> std::generator<std::tuple<app::Modifier, std::string>>
 {
     const auto udev = app::make_udev();
     const libinput_interface interface = {
@@ -47,7 +49,7 @@ auto input() -> std::generator<std::string>
         app::poll(&fds);
         libinput_dispatch(libinput.get());
         while (auto event = app::make_event(libinput.get())) {
-            co_yield std::string { to_string(event) };
+            co_yield { app::Modifier {}, std::string { to_string(event) } };
         }
     }
 }
