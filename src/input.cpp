@@ -2,16 +2,14 @@ module;
 
 #include <libinput.h>
 
-#include <generator>
-#include <string>
-#include <tuple>
-
 export module input;
 
 import :event;
 import :external;
 import :memory;
 import :modifier;
+
+import std;
 
 namespace {
 

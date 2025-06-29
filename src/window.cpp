@@ -3,11 +3,6 @@ module;
 #include "gtkmm/styleprovider.h"
 #include <gtkmm/window.h>
 
-#include <atomic>
-#include <cstdlib>
-#include <print>
-#include <thread>
-
 export module window;
 
 import :cfg;
@@ -15,6 +10,8 @@ import :menu;
 import :toggle;
 
 import input;
+
+import std;
 
 export namespace app {
 

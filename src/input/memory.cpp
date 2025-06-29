@@ -3,10 +3,9 @@ module;
 #include <libinput.h>
 #include <libudev.h>
 
-#include <functional>
-#include <memory>
-
 export module input:memory;
+
+import std;
 
 export namespace app {
 

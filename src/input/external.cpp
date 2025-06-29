@@ -4,9 +4,9 @@ module;
 #include <sys/poll.h>
 #include <unistd.h>
 
-#include <cstdlib>
-
 export module input:external;
+
+import std;
 
 namespace {
 

@@ -3,13 +3,12 @@ module;
 #include <libevdev/libevdev.h>
 #include <libinput.h>
 
-#include <format>
-#include <string>
-
 export module input:event;
 
 import :memory;
 import :name;
+
+import std;
 
 export namespace app {
 

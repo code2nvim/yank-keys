@@ -1,8 +1,8 @@
 module;
 
-#include <concepts>
-
 export module input:modifier;
+
+import std;
 
 export namespace app {
 

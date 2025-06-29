@@ -2,10 +2,9 @@ module;
 
 #include <gtkmm/button.h>
 
-#include <functional>
-#include <utility>
-
 export module window:toggle;
+
+import std;
 
 export namespace app {
 

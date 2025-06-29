@@ -1,10 +1,8 @@
 module;
 
-#include <format>
-#include <string>
-#include <variant>
-
 export module input:token;
+
+import std;
 
 export namespace app {
 

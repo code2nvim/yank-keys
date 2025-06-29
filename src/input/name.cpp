@@ -1,8 +1,8 @@
 module;
 
-#include <string>
-
 export module input:name;
+
+import std;
 
 export namespace app {
 
