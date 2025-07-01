@@ -1,5 +1,6 @@
 module;
 
+#include "gtkmm/cssprovider.h"
 #include "gtkmm/styleprovider.h"
 #include <gtkmm/window.h>
 
@@ -25,7 +26,7 @@ private:
     void toggle();
 
     app::Menu menu_;
-    app::Toggle toggle_ { ToggleProps { .toggle = [this] { toggle(); } } };
+    app::Toggle toggle_ { { .toggle = [this] { toggle(); } } };
 
     std::atomic<bool> running_ { true };
     std::jthread input_ { [this] { input(); } };
@@ -34,7 +35,9 @@ private:
 Window::Window()
 {
     constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER from <gtk/gtk.h>
-    Gtk::StyleProvider::add_provider_for_display(get_display(), app::styles.provider, priority);
+    auto css = Gtk::CssProvider::create();
+    css->load_from_string(app::styles.provider);
+    Gtk::StyleProvider::add_provider_for_display(get_display(), css, priority);
     set_title(app::window.title);
     set_default_size(app::window.width, app::menu.height);
     set_resizable(app::window.resizable);
@@ -44,7 +47,6 @@ Window::Window()
 
 void Window::input()
 {
-    std::println("Window::input");
     for (auto [mod, msg] : app::input()) {
         if (running_) {
             toggle_.set_label(std::move(msg));

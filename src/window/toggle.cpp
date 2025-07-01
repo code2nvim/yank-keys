@@ -8,23 +8,23 @@ import std;
 
 export namespace app {
 
-struct ToggleProps {
+struct Props {
     std::function<void()> toggle;
 };
 
 class Toggle : public Gtk::Button {
 public:
-    Toggle(ToggleProps props);
+    Toggle(Props props);
 
 private:
-    ToggleProps props_;
+    Props props_;
 };
 
-Toggle::Toggle(ToggleProps props)
+Toggle::Toggle(Props props)
     : props_ { std::move(props) }
 {
     signal_clicked().connect(props_.toggle);
-    add_css_class("Button");
+    set_name("toggle");
 }
 
 }
