@@ -2,23 +2,23 @@ module;
 
 export module window:cfg;
 
-namespace app {
+export namespace app {
 
-export const struct {
+const struct Window_ {
     const char* title = "yank-keys";
     int width = 800;
     int height = 600;
     bool resizable = false;
 } window;
 
-export const struct {
+const struct Menu_ {
     const char* title = "yank-keys";
     int width = 300;
     int height = 300;
     bool resizable = false;
 } menu;
 
-export const struct {
+const struct Styles_ {
     const char* provider
         = "#toggle {"
           "  font-family: Monospace;"
