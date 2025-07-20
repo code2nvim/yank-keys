@@ -3,7 +3,7 @@ add_rules("mode.debug", "mode.release")
 add_rules("plugin.compile_commands.autoupdate")
 
 set_languages("c++26")
-set_warnings("all", "extra", "pedantic")
+set_warnings("pedantic", "allextra", "error")
 set_policy("build.c++.modules", true)
 
 set_toolchains("clang")       -- required for clangd
