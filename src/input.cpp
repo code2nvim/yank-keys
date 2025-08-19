@@ -7,7 +7,8 @@ export module input;
 import :event;
 import :external;
 import :memory;
-import :modifier;
+
+import data;
 
 import std;
 
@@ -27,9 +28,9 @@ auto to_string(const app::event_ptr& event) -> std::string
 
 }
 
-export namespace app {
+namespace app {
 
-auto input(app::Modifier modifier = {}) -> std::generator<std::tuple<app::Modifier, std::string>>
+export auto input() -> std::generator<std::tuple<app::Modifier, std::string>>
 {
     const auto udev = app::make_udev();
     const libinput_interface interface = {

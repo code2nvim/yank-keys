@@ -20,16 +20,16 @@ auto close(int _fd) -> int;
 
 }
 
-export namespace app {
+namespace app {
 
-using pollfd = pollfd;
+export using pollfd = pollfd;
 
-auto poll(pollfd* fds) -> int
+export auto poll(pollfd* fds) -> int
 {
     return poll(fds, 1, -1);
 }
 
-auto open_restricted(const char* file, int oflag, [[maybe_unused]] void* user_data) -> int
+export auto open_restricted(const char* file, int oflag, [[maybe_unused]] void* user_data) -> int
 {
     const int descriptor = open(file, oflag); // NOLINT
     if (descriptor < 0) {
@@ -39,7 +39,7 @@ auto open_restricted(const char* file, int oflag, [[maybe_unused]] void* user_da
     }
 }
 
-void close_restricted(int descriptor, [[maybe_unused]] void* user_data)
+export void close_restricted(int descriptor, [[maybe_unused]] void* user_data)
 {
     close(descriptor);
 }

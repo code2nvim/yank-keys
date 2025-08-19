@@ -6,9 +6,9 @@ export module window:menu;
 
 import :cfg;
 
-export namespace app {
+namespace app {
 
-class Menu : public Gtk::Window {
+export class Menu : public Gtk::Window {
 public:
     Menu();
 

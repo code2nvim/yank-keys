@@ -14,10 +14,10 @@ import input;
 
 import std;
 
-export namespace app {
+namespace app {
 
 // main window
-class Window : public Gtk::Window {
+export class Window : public Gtk::Window {
 public:
     Window();
 

@@ -7,11 +7,11 @@ export module input:memory;
 
 import std;
 
-export namespace app {
+namespace app {
 
-using udev_ptr = std::unique_ptr<udev, std::function<void(udev*)>>;
+export using udev_ptr = std::unique_ptr<udev, std::function<void(udev*)>>;
 
-auto make_udev()
+export auto make_udev()
 {
     return udev_ptr {
         udev_new(),
@@ -21,9 +21,9 @@ auto make_udev()
     };
 }
 
-using libinput_ptr = std::unique_ptr<libinput, std::function<void(libinput*)>>;
+export using libinput_ptr = std::unique_ptr<libinput, std::function<void(libinput*)>>;
 
-auto make_libinput(const libinput_interface* interface, void* user_data, udev* udev)
+export auto make_libinput(const libinput_interface* interface, void* user_data, udev* udev)
 {
     return libinput_ptr {
         libinput_udev_create_context(interface, user_data, udev),
@@ -33,9 +33,9 @@ auto make_libinput(const libinput_interface* interface, void* user_data, udev* u
     };
 }
 
-using event_ptr = std::unique_ptr<libinput_event, std::function<void(libinput_event*)>>;
+export using event_ptr = std::unique_ptr<libinput_event, std::function<void(libinput_event*)>>;
 
-auto make_event(libinput* libinput)
+export auto make_event(libinput* libinput)
 {
     return event_ptr {
         libinput_get_event(libinput),

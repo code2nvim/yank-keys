@@ -10,9 +10,9 @@ import :name;
 
 import std;
 
-export namespace app {
+namespace app {
 
-auto keyboard_event(const app::event_ptr& event) -> std::string
+export auto keyboard_event(const app::event_ptr& event) -> std::string
 {
     auto* keyboard = libinput_event_get_keyboard_event(event.get());
     const std::string name {
@@ -27,7 +27,7 @@ auto keyboard_event(const app::event_ptr& event) -> std::string
     };
 }
 
-auto pointer_event(const app::event_ptr& event) -> std::string
+export auto pointer_event(const app::event_ptr& event) -> std::string
 {
     auto* pointer = libinput_event_get_pointer_event(event.get());
     const std::string name {

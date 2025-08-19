@@ -6,13 +6,13 @@ export module window:toggle;
 
 import std;
 
-export namespace app {
+namespace app {
 
-struct Props {
+export struct Props {
     std::function<void()> toggle;
 };
 
-class Toggle : public Gtk::Button {
+export class Toggle : public Gtk::Button {
 public:
     Toggle(Props props);
 
