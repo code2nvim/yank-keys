@@ -19,11 +19,7 @@ export const struct Menu_ {
 } menu;
 
 export const struct Styles_ {
-    const char* provider
-        = "#toggle {"
-          "  font-family: Monospace;"
-          "  font-size: 6rem;"
-          "}";
+    const char* provider = "styles.css";
 } styles;
 
 }

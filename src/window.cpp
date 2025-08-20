@@ -36,7 +36,7 @@ Window::Window()
 {
     constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER from <gtk/gtk.h>
     auto css = Gtk::CssProvider::create();
-    css->load_from_string(app::styles.provider);
+    css->load_from_path(app::styles.provider);
     Gtk::StyleProvider::add_provider_for_display(get_display(), css, priority);
     set_title(app::window.title);
     set_default_size(app::window.width, app::menu.height);
