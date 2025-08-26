@@ -35,21 +35,27 @@ private:
 Window::Window()
 {
     constexpr int priority = 800; // GTK_STYLE_PROVIDER_PRIORITY_USER from <gtk/gtk.h>
-    auto css = Gtk::CssProvider::create();
-    css->load_from_path(app::styles.provider);
-    Gtk::StyleProvider::add_provider_for_display(get_display(), css, priority);
-    set_title(app::window.title);
-    set_default_size(app::window.width, app::menu.height);
-    set_resizable(app::window.resizable);
-    signal_close_request().connect([] { std::exit(0); return false; }, false); // exit program when window is closed
+    Gtk::StyleProvider::add_provider_for_display(
+        get_display(),
+        [] {
+            auto css = Gtk::CssProvider::create();
+            css->load_from_path(app::cfg::styles.provider);
+            return css;
+        }(),
+        priority // clang-format
+    );
+    set_title(app::cfg::window.title);
+    set_default_size(app::cfg::window.width, app::cfg::menu.height);
+    set_resizable(app::cfg::window.resizable);
     set_child(toggle_);
+    signal_close_request().connect([] { std::exit(0); return false; }, false); // exit program when window is closed
 }
 
 void Window::input()
 {
-    for (auto [mod, msg] : app::input()) {
+    for (auto [hold, key] : app::input()) {
         if (running_) {
-            toggle_.set_label(std::move(msg));
+            toggle_.set_label(std::move(key));
         }
     }
 }

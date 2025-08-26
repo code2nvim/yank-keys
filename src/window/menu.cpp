@@ -17,9 +17,9 @@ public:
 
 Menu::Menu()
 {
-    set_title(app::menu.title);
-    set_default_size(app::menu.width, app::menu.height);
-    set_resizable(app::menu.resizable);
+    set_name(app::cfg::menu.name);
+    set_default_size(app::cfg::menu.width, app::cfg::menu.height);
+    set_resizable(app::cfg::menu.resizable);
     signal_close_request().connect([] { return true; }, false); // unclosable util the main window is closed
 }
 

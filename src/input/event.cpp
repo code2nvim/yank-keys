@@ -6,13 +6,12 @@ module;
 export module input:event;
 
 import :memory;
-import :name;
 
 import std;
 
 namespace app {
 
-export auto keyboard_event(const app::event_ptr& event) -> std::string
+export auto keyboard_event(const app::event_ptr& event) -> std::tuple<bool, std::string>
 {
     auto* keyboard = libinput_event_get_keyboard_event(event.get());
     const std::string name {
@@ -21,13 +20,13 @@ export auto keyboard_event(const app::event_ptr& event) -> std::string
     };
     switch (libinput_event_keyboard_get_key_state(keyboard)) {
     case LIBINPUT_KEY_STATE_PRESSED:
-        return std::format("pressed: {}", app::key_name(name));
+        return std::tuple { true, name };
     case LIBINPUT_KEY_STATE_RELEASED:
-        return std::format("released: {}", app::key_name(name));
+        return std::tuple { false, name };
     };
 }
 
-export auto pointer_event(const app::event_ptr& event) -> std::string
+export auto pointer_event(const app::event_ptr& event) -> std::tuple<bool, std::string>
 {
     auto* pointer = libinput_event_get_pointer_event(event.get());
     const std::string name {
@@ -36,9 +35,9 @@ export auto pointer_event(const app::event_ptr& event) -> std::string
     };
     switch (libinput_event_pointer_get_button_state(pointer)) {
     case LIBINPUT_BUTTON_STATE_PRESSED:
-        return std::format("pressed: {}", app::btn_name(name));
+        return std::tuple { true, name };
     case LIBINPUT_BUTTON_STATE_RELEASED:
-        return std::format("released: {}", app::btn_name(name));
+        return std::tuple { false, name };
     };
 }
 

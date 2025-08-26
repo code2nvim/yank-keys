@@ -45,8 +45,6 @@ target("input_test", function()
   add_defines("BOOST_TEST_DYN_LINK")
   add_defines("BOOST_TEST_MODULE input_test")
   add_files(
-    "src/data/*.cpp",
-    "src/data.cpp",
     "src/input/*.cpp",
     "src/input.cpp",
     "test/input_test.cpp"

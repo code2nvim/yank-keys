@@ -4,27 +4,33 @@ module;
 
 export module window:toggle;
 
+import :cfg;
+
 import std;
 
 namespace app {
 
-export struct Props {
-    std::function<void()> toggle;
-};
+export class Toggle;
 
-export class Toggle : public Gtk::Button {
+namespace {
+    struct ToggleProps {
+        std::function<void()> toggle;
+    };
+}
+
+class Toggle : public Gtk::Button {
 public:
-    Toggle(Props props);
+    Toggle(ToggleProps props);
 
 private:
-    Props props_;
+    ToggleProps props_;
 };
 
-Toggle::Toggle(Props props)
+Toggle::Toggle(ToggleProps props)
     : props_ { std::move(props) }
 {
+    set_name(app::cfg::toggle.name);
     signal_clicked().connect(props_.toggle);
-    set_name("toggle");
 }
 
 }

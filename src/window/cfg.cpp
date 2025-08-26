@@ -2,7 +2,7 @@ module;
 
 export module window:cfg;
 
-namespace app {
+namespace app::cfg {
 
 export const struct Window_ {
     const char* title = "yank-keys";
@@ -11,8 +11,12 @@ export const struct Window_ {
     bool resizable = false;
 } window;
 
+export const struct Toggle_ {
+    const char* name = "toggle";
+} toggle;
+
 export const struct Menu_ {
-    const char* title = "yank-keys";
+    const char* name = "menu";
     int width = 300;
     int height = 300;
     bool resizable = false;

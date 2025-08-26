@@ -8,29 +8,25 @@ import :event;
 import :external;
 import :memory;
 
-import data;
-
 import std;
-
-namespace {
-
-auto to_string(const app::event_ptr& event) -> std::string
-{
-    switch (libinput_event_get_type(event.get())) {
-    case LIBINPUT_EVENT_KEYBOARD_KEY:
-        return app::keyboard_event(event);
-    case LIBINPUT_EVENT_POINTER_BUTTON:
-        return app::pointer_event(event);
-    default:
-        return "unknown";
-    }
-}
-
-}
 
 namespace app {
 
-export auto input() -> std::generator<std::tuple<app::Modifier, std::string>>
+namespace {
+    auto to_input(const app::event_ptr& event) -> std::tuple<bool, std::string>
+    {
+        switch (libinput_event_get_type(event.get())) {
+        case LIBINPUT_EVENT_KEYBOARD_KEY:
+            return app::keyboard_event(event);
+        case LIBINPUT_EVENT_POINTER_BUTTON:
+            return app::pointer_event(event);
+        default:
+            return std::tuple { false, std::string {} };
+        }
+    }
+}
+
+export auto input() -> std::generator<std::tuple<bool, std::string>>
 {
     const auto udev = app::make_udev();
     const libinput_interface interface = {
@@ -48,7 +44,7 @@ export auto input() -> std::generator<std::tuple<app::Modifier, std::string>>
         app::poll(&fds);
         libinput_dispatch(libinput.get());
         while (auto event = app::make_event(libinput.get())) {
-            co_yield { app::Modifier {}, std::string { to_string(event) } };
+            co_yield to_input(event);
         }
     }
 }
