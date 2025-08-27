@@ -21,7 +21,7 @@ namespace {
         case LIBINPUT_EVENT_POINTER_BUTTON:
             return app::pointer_event(event);
         default:
-            return std::tuple { false, std::string {} };
+            return std::tuple { false, std::string { "unknown event" } };
         }
     }
 }

@@ -9,10 +9,10 @@
 Install following dependencies:
 
 - gtkmm-4.0
-- libudev 
+- libudev
 - libinput
 - libevdev
-- xmake
+- xmake (or cmake and ninja)
 
 ### Build steps
 
@@ -28,6 +28,13 @@ For developers who need clangd supports (clangd doesn't support GCC modules now)
 xmake f --toolchain=clang -c
 ```
 
-### Where are the headers (.h, .hpp, .hxx)?
+### Build with CMake (experimental)
 
-Upgrade your compiler and use modules. I would never create any header files in my projects, EVER.
+```
+CXX=clang++ cmake -B build -G Ninja\ Multi-Config && cmake --build build
+```
+
+### Where are the header files (.h, .hpp, .hxx)?
+
+Upgrade your compiler and use modules. I would never create any header files in
+my projects, EVER.

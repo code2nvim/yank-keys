@@ -1,1 +1,1 @@
-Checks: "bugprone-*, cppcoreguidelines-*, misc-*, modernize-*, performance-*, portability-*, readability-*"
+Checks : "bugprone-*, cppcoreguidelines-*, misc-*, modernize-*, performance-*, portability-*, readability-*"

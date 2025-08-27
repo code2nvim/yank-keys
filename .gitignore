@@ -1,6 +1,9 @@
 .cache
+build/
 compile_commands.json
+
+# CMake
+std.cc
 
 # Xmake
 .xmake/
-build/

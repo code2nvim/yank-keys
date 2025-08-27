@@ -33,9 +33,7 @@ auto Modifier::held(Mod key) const -> bool
         },
         [this](Shift) {
             return (value_ & 0b001) != 0;
-        })
-        // clang-format
-    );
+        }));
 }
 
 }
