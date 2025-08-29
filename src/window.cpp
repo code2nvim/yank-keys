@@ -57,10 +57,10 @@ Window::Window()
 void Window::input()
 {
     for (const auto& [hold, key] : app::input()) {
-        if (running_) {
+        if (running_ && key != "...") {
             data_.match(hold, key);
             auto joined = data_.keys() | std::ranges::views::join_with(' ');
-            toggle_.set_label(std::accumulate(joined.begin(), joined.end(), std::string {}));
+            toggle_.set_label(std::string { joined.begin(), joined.end() });
         }
     }
 }

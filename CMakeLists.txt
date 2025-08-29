@@ -22,51 +22,46 @@ pkg_check_modules(gtkmm REQUIRED IMPORTED_TARGET gtkmm-4.0)
 pkg_check_modules(libevdev REQUIRED IMPORTED_TARGET libevdev)
 pkg_check_modules(libudev REQUIRED IMPORTED_TARGET libudev)
 
-add_library(std)
+add_library(std STATIC)
 target_sources(std
   PUBLIC
     FILE_SET CXX_MODULES FILES
-      std.cc # in .gitignore
-)
+      std.cc) # in .gitignore
 
-add_library(data)
+add_library(data STATIC)
 target_link_libraries(data PRIVATE std)
 target_sources(data
   PUBLIC
     FILE_SET CXX_MODULES FILES
-      src/data.cpp
       src/data/helper.cpp
       src/data/keymap.cpp
       src/data/modifier.cpp
-)
+      src/data.cpp)
 
-add_library(input)
+add_library(input STATIC)
 target_link_libraries(input PRIVATE Libinput::Libinput PkgConfig::libevdev PkgConfig::libudev)
 target_link_libraries(input PRIVATE std)
 target_sources(input
   PUBLIC
     FILE_SET CXX_MODULES FILES
-      src/input.cpp
       src/input/event.cpp
       src/input/external.cpp
       src/input/memory.cpp
-)
+      src/input.cpp)
 
 add_executable(yank-keys src/main.cpp)
 target_sources(yank-keys
   PRIVATE
     FILE_SET CXX_MODULES FILES
-      src/window.cpp
       src/window/bottom.cpp
       src/window/cfg.cpp
       src/window/menu.cpp
       src/window/toggle.cpp
-)
+      src/window.cpp)
 
 target_link_libraries(yank-keys
   PRIVATE
     PkgConfig::gtkmm
     data
     input
-    std
-)
+    std)

@@ -13,7 +13,7 @@ import std;
 namespace app {
 
 namespace {
-    auto to_input(const app::event_ptr& event) -> std::tuple<bool, std::string>
+    auto to_input(const app::event_ptr& event) -> std::pair<bool, std::string>
     {
         switch (libinput_event_get_type(event.get())) {
         case LIBINPUT_EVENT_KEYBOARD_KEY:
@@ -26,7 +26,7 @@ namespace {
     }
 }
 
-export auto input() -> std::generator<std::tuple<bool, std::string>>
+export auto input() -> std::generator<std::pair<bool, std::string>>
 {
     const auto udev = app::make_udev();
     const libinput_interface interface = {

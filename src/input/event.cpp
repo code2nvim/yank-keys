@@ -11,7 +11,7 @@ import std;
 
 namespace app {
 
-export auto keyboard_event(const app::event_ptr& event) -> std::tuple<bool, std::string>
+export auto keyboard_event(const app::event_ptr& event) -> std::pair<bool, std::string>
 {
     auto* keyboard = libinput_event_get_keyboard_event(event.get());
     const std::string name {
@@ -26,7 +26,7 @@ export auto keyboard_event(const app::event_ptr& event) -> std::tuple<bool, std:
     };
 }
 
-export auto pointer_event(const app::event_ptr& event) -> std::tuple<bool, std::string>
+export auto pointer_event(const app::event_ptr& event) -> std::pair<bool, std::string>
 {
     auto* pointer = libinput_event_get_pointer_event(event.get());
     const std::string name {

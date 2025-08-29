@@ -35,9 +35,6 @@ auto Data::keys() const -> std::deque<std::string>
 
 void Data::push_key(std::string key)
 {
-    if (keys_.size() == 3) {
-        keys_.pop_front();
-    }
     keys_.push_back(std::move(key));
 }
 
@@ -49,9 +46,9 @@ void Data::update_mod(app::Mod::Modifier mod)
 void Data::match(bool hold, std::string_view key)
 {
     if (hold) {
-        push_key(std::string {
-            keymap.contains(key) ? app::keymap.at(key) : key,
-        });
+        push_key(app::to_mapped(key));
+    } else {
+        std::erase(keys_, app::to_mapped(key));
     }
 }
 
