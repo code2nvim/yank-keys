@@ -10,15 +10,11 @@ import std;
 
 namespace app {
 
-export class Toggle;
+struct ToggleProps {
+    std::function<void()> toggle;
+};
 
-namespace {
-    struct ToggleProps {
-        std::function<void()> toggle;
-    };
-}
-
-class Toggle : public Gtk::Button {
+export class Toggle : public Gtk::Button {
 public:
     Toggle(ToggleProps props);
 

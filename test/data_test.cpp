@@ -1,5 +1,7 @@
 module;
 
+#define BOOST_TEST_MODULE data_test
+
 #include <boost/test/unit_test.hpp>
 
 module data;

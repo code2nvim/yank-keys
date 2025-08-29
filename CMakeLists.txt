@@ -36,6 +36,7 @@ target_sources(data
     FILE_SET CXX_MODULES FILES
       src/data.cpp
       src/data/helper.cpp
+      src/data/keymap.cpp
       src/data/modifier.cpp
 )
 
@@ -56,6 +57,7 @@ target_sources(yank-keys
   PRIVATE
     FILE_SET CXX_MODULES FILES
       src/window.cpp
+      src/window/bottom.cpp
       src/window/cfg.cpp
       src/window/menu.cpp
       src/window/toggle.cpp

@@ -6,12 +6,13 @@ module;
 
 export module window;
 
+import :bottom;
 import :cfg;
 import :menu;
 import :toggle;
 
+import data;
 import input;
-
 import std;
 
 namespace app {
@@ -27,7 +28,9 @@ private:
 
     app::Menu menu_;
     app::Toggle toggle_ { { .toggle = [this] { toggle(); } } };
+    app::Bottom bottom_;
 
+    app::Data data_;
     std::atomic<bool> running_ { true };
     std::jthread input_ { [this] { input(); } };
 };
@@ -42,20 +45,22 @@ Window::Window()
             css->load_from_path(app::cfg::styles.provider);
             return css;
         }(),
-        priority // clang-format
-    );
+        priority);
     set_title(app::cfg::window.title);
     set_default_size(app::cfg::window.width, app::cfg::menu.height);
     set_resizable(app::cfg::window.resizable);
+    set_child(bottom_);
     set_child(toggle_);
     signal_close_request().connect([] { std::exit(0); return false; }, false); // exit program when window is closed
 }
 
 void Window::input()
 {
-    for (auto [hold, key] : app::input()) {
+    for (const auto& [hold, key] : app::input()) {
         if (running_) {
-            toggle_.set_label(std::move(key));
+            data_.match(hold, key);
+            auto joined = data_.keys() | std::ranges::views::join_with(' ');
+            toggle_.set_label(std::accumulate(joined.begin(), joined.end(), std::string {}));
         }
     }
 }
