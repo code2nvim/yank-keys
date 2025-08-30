@@ -33,6 +33,7 @@ private:
     app::Data data_;
     std::atomic<bool> running_ { true };
     std::jthread input_ { [this] { input(); } };
+    std::mutex mtx_;
 };
 
 Window::Window()
@@ -56,11 +57,17 @@ Window::Window()
 
 void Window::input()
 {
-    for (const auto& [hold, key] : app::input()) {
-        if (running_ && key != "...") {
-            data_.match(hold, key);
+    std::jthread task { [this] { // update even with no input
+        for (;; std::this_thread::sleep_for(std::chrono::milliseconds(100))) { // NOLINT
+            std::unique_lock lock { mtx_ };
             auto joined = data_.keys() | std::ranges::views::join_with(' ');
             toggle_.set_label(std::string { joined.begin(), joined.end() });
+        }
+    } };
+    for (const auto& [hold, key] : app::input()) {
+        std::unique_lock lock { mtx_ };
+        if (running_ && key != "...") {
+            data_.match(hold, key);
         }
     }
 }
