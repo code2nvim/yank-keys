@@ -30,6 +30,10 @@ xmake f --toolchain=clang -c
 
 ### Build with CMake (experimental)
 
+## WARNING: std.cc needed
+
+Since ```import std``` with different flags is not yet fully implemented in CMake, you need to copy std.cc to the project's root directory.
+
 ```
 CXX=clang++ cmake -B build -G Ninja\ Multi-Config && cmake --build build
 ```
